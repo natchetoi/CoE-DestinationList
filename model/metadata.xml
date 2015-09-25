@@ -1,0 +1,60 @@
+<edmx:Edmx Version="1.0"
+    xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    xmlns:sap="http://www.sap.com/Protocols/SAPData">
+    <edmx:DataServices m:DataServiceVersion="2.0">
+        <Schema Namespace="DEST_LIST" xml:lang="en"
+            xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+            <EntityType Name="Trade" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Pernr"/>
+                </Key>
+                <Property Name="Pernr" Type="Edm.String" Nullable="false"  MaxLength="7" sap:label="Employee#"/>
+                <Property Name="Name" Type="Edm.String" Nullable="false" MaxLength="50" sap:label="Trade"/>
+                <Property Name="Phone" Type="Edm.String" MaxLength="12" sap:label="Phone#"/>
+                <Property Name="Categ" Type="Edm.String" MaxLength="8" sap:label="Category"/>
+                <Property Name="PlanPlant" Type="Edm.String" MaxLength="4" sap:label="Plan Plant"/>
+                <Property Name="PlanGroup" Type="Edm.String" MaxLength="2" sap:label="Planner Group"/>
+                <Property Name="Division" Type="Edm.String" MaxLength="2" sap:label="Division"/>
+                <NavigationProperty Name="Destinations" Relationship="DEST_LIST.Trade_Destination" FromRole="FromRole_Trade_Destination" ToRole="ToRole_Trade_Destination"/>
+            </EntityType>
+            <EntityType Name="Destination" sap:content-version="1">
+                <Key>
+                    <PropertyRef Name="Pernr"/>
+                    <PropertyRef Name="OrderId"/>
+                </Key>
+                <Property Name="Pernr" Type="Edm.String" Nullable="false"  MaxLength="7" sap:label="Employee#"/>
+                <Property Name="OrderId" Type="Edm.String" Nullable="false" MaxLength="10" sap:label="Work Order #"/>
+                <Property Name="FunLocation" Type="Edm.String" MaxLength="10" sap:label="Functional Location"/>
+                <Property Name="Address" Type="Edm.String" MaxLength="50" sap:label="Address"/>
+                <Property Name="Item" Type="Edm.String" Nullable="false" MaxLength="6" sap:label="Technical Item"/>
+                <Property Name="Notif" Type="Edm.String" MaxLength="18" sap:label="Notif#"/>
+                <Property Name="Description" Type="Edm.String" MaxLength="40" sap:label="Description"/>
+                <Property Name="Value" Type="Edm.Decimal" Precision="15" Scale="2" sap:label="Order value"/>
+                <Property Name="SKF" Type="Edm.Decimal" Precision="15" Scale="2" sap:label="SKF Value"/>
+                <Property Name="UoM" Type="Edm.String" MaxLength="3" sap:label="Unit" sap:semantics="unit-of-measure"/>
+                <NavigationProperty Name="Trade" Relationship="DEST_LIST.Destination_Trade" FromRole="FromRole_Destination_Trade" ToRole="ToRole_Destination_Trade"/>
+            </EntityType>
+            <Association Name="Destination_Trade" sap:content-version="1">
+                <End Type="DEST_LIST.Destination" Multiplicity="1" Role="FromRole_Destination_Trade"/>
+                <End Type="DEST_LIST.Trade" Multiplicity="1" Role="ToRole_Destination_Trade"/>
+            </Association>
+            <Association Name="Trade_Destination" sap:content-version="1">
+                <End Type="DEST_LIST.Trade" Multiplicity="1" Role="FromRole_Trade_Destination"/>
+                <End Type="DEST_LIST.Destination" Multiplicity="*" Role="ToRole_Trade_Destination"/>
+            </Association>
+            <EntityContainer Name="DEST_LIST" m:IsDefaultEntityContainer="true">
+                <EntitySet Name="Trade" EntityType="DEST_LIST.Trade" sap:content-version="1"/>
+                <EntitySet Name="Destination" EntityType="DEST_LIST.Destination" sap:content-version="1"/>
+                <AssociationSet Name="Trade_Destination_AssocSet" Association="DEST_LIST.Trade_Destination" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Trade" Role="FromRole_Trade_Destination"/>
+                    <End EntitySet="Destination" Role="ToRole_Trade_Destination"/>
+                </AssociationSet>
+                <AssociationSet Name="Destination_Trade_AssocSet" Association="DEST_LIST.Destination_Trade" sap:creatable="false" sap:updatable="false" sap:deletable="false" sap:content-version="1">
+                    <End EntitySet="Destination" Role="FromRole_Destination_Trade"/>
+                    <End EntitySet="Trade" Role="ToRole_Destination_Trade"/>
+                </AssociationSet>
+            </EntityContainer>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

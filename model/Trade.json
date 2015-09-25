@@ -1,0 +1,186 @@
+[{
+	"Name": "John Croiser",
+	"Pernr": "0002345",
+	"Phone": "780-496-1931",
+	"Categ": "CAF",
+	"PlanPlant": "PlanPlant 1",
+	"PlanGroup": "PlanGroup 1",
+	"Division": "Structural",
+	"__metadata": {
+		"uri": "Trade('0002345')",
+		"type": "DEST_LIST.Trade"
+	},
+	"Destinations": {
+		"__deferred": {
+			"uri": "Trade('0002345')/Destinations"
+		}
+	}
+}, {
+	"Name": "Alan Abyan",
+	"Pernr": "0049865",
+	"Phone": "780-496-8963",
+	"Categ": "CC3",
+	"PlanPlant": "PlanPlant 2",
+	"PlanGroup": "PlanGroup 2",
+	"Division": "Structural",
+	"__metadata": {
+		"uri": "Trade('0049865')",
+		"type": "DEST_LIST.Trade"
+	},
+	"Destinations": {
+		"__deferred": {
+			"uri": "Trade('0049865')/Destinations"
+		}
+	}
+}, {
+	"Name": "Aaron Buss",
+	"Pernr": "0078475",
+	"Phone": "780-721-8867",
+	"Categ": "CA1 TEMP",
+	"PlanPlant": "PlanPlant 3",
+	"PlanGroup": "PlanGroup 3",
+	"Division": "Structural",
+	"__metadata": {
+		"uri": "Trade('0078475')",
+		"type": "DEST_LIST.Trade"
+	},
+	"Destinations": {
+		"__deferred": {
+			"uri": "Trade('0078475')/Destinations"
+		}
+	}
+}, {
+	"Name": "Erin Untershute",
+	"Pernr": "0009284",
+	"Phone": "780-446-0963",
+	"Categ": "CA1",
+	"PlanPlant": "PlanPlant 4",
+	"PlanGroup": "PlanGroup 4",
+	"Division": "Structural",
+	"__metadata": {
+		"uri": "Trade('0009284')",
+		"type": "DEST_LIST.Trade"
+	},
+	"Destinations": {
+		"__deferred": {
+			"uri": "Trade('0009284')/Destinations"
+		}
+	}
+}, {
+	"Name": "Claudia Quintanilla",
+	"Pernr": "0001736",
+	"Phone": "780-984-0689",
+	"Categ": "CA1",
+	"PlanPlant": "PlanPlant 5",
+	"PlanGroup": "PlanGroup 5",
+	"Division": "Structural",
+	"__metadata": {
+		"uri": "Trade('0001736')",
+		"type": "DEST_LIST.Trade"
+	},
+	"Destinations": {
+		"__deferred": {
+			"uri": "Trade('0001736')/Destinations"
+		}
+	}
+}, {
+	"Name": "Bernie Kelm",
+	"Pernr": "0005693",
+	"Phone": "780-218-7792",
+	"Categ": "CA1",
+	"PlanPlant": "PlanPlant 6",
+	"PlanGroup": "PlanGroup 6",
+	"Division": "Structural",
+	"__metadata": {
+		"uri": "Trade('0005693')",
+		"type": "DEST_LIST.Trade"
+	},
+	"Destinations": {
+		"__deferred": {
+			"uri": "Trade('0005693')/Destinations"
+		}
+	}
+}, {
+	"Name": "Dave Andrews",
+	"Pernr": "0009838",
+	"Phone": "780-496-8962",
+	"Categ": "CC4",
+	"PlanPlant": "PlanPlant 7",
+	"PlanGroup": "PlanGroup 7",
+	"Division": "Structural",
+	"__metadata": {
+		"uri": "Trade('0009838')",
+		"type": "DEST_LIST.Trade"
+	},
+	"Destinations": {
+		"__deferred": {
+			"uri": "Trade('0009838')/Destinations"
+		}
+	}
+}, {
+	"Name": "Kyle Sherbank",
+	"Pernr": "0008765",
+	"Phone": "780-292-4248",
+	"Categ": "CA1",
+	"PlanPlant": "PlanPlant 8",
+	"PlanGroup": "PlanGroup 8",
+	"Division": "Structural",
+	"__metadata": {
+		"uri": "Trade('0008765')",
+		"type": "DEST_LIST.Trade"
+	},
+	"Destinations": {
+		"__deferred": {
+			"uri": "Trade('0008765')/Destinations"
+		}
+	}
+}, {
+	"Name": "Kenneth Mitchell",
+	"Pernr": "0009876",
+	"Phone": "587-784-9855",
+	"Categ": "CA1",
+	"PlanPlant": "PlanPlant 9",
+	"PlanGroup": "PlanGroup 9",
+	"Division": "Structural",
+	"__metadata": {
+		"uri": "Trade('0009876')",
+		"type": "DEST_LIST.Trade"
+	},
+	"Destinations": {
+		"__deferred": {
+			"uri": "Trade('0009876')/Destinations"
+		}
+	}
+}, {
+	"Name": "Sarah Davey",
+	"Pernr": "0004356",
+	"Phone": "780-721-5819",
+	"Categ": "CA1",
+	"PlanPlant": "PlanPlant 10",
+	"PlanGroup": "PlanGroup 10",
+	"Division": "Structural",
+	"__metadata": {
+		"uri": "Trade('0004356')",
+		"type": "DEST_LIST.Trade"
+	},
+	"Destinations": {
+		"__deferred": {
+			"uri": "Trade('0004356')/Destinations"
+		}
+	}
+}, {
+	"Name": "Shane Andrews",
+	"Pernr": "0002345",
+	"Phone": "780-886-3028",
+	"Categ": "CA1"
+}, {
+	"Name": "Sean Cooper",
+	"Pernr": "0004567",
+	"Phone": "587-987-4069",
+	"Categ": "CA1 TEMP"
+}, {
+	"Name": "David Almond",
+	"Pernr": "0004325",
+	"Phone": "587-984-9788",
+	"Categ": "CA1 TEMP"
+}]

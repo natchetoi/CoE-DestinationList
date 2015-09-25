@@ -1,0 +1,1 @@
+sap.ui.core.mvc.Controller.extend("destlist1.view.NotFound", {});
