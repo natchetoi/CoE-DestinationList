@@ -1,63 +1,35 @@
-<mvc:View 
-    controllerName="destlist1.view.Master"
-    xmlns="sap.m"
-    xmlns:core="sap.ui.core"
-    xmlns:mvc="sap.ui.core.mvc"
-    xmlns:footerbar="sap.ushell.ui.footerbar">
-    <Page 
-        id="masterPage" 
-        title="{i18n>masterTitle}">
-        <subHeader
-            id="masterSubHeader">
-            <Bar 
-                id="searchBar">
-                <contentMiddle>
-                    <SearchField 
-                        id="searchField" 
-                        search="onSearch" 
-                        width="100%" 
-                        placeholder="{i18n>masterSearchPlaceholder}" 
-                        showRefreshButton="{device>/isNoTouch}" 
-                        tooltip="{i18n>masterSearchTooltip}">
-                    </SearchField>
-                </contentMiddle>
-            </Bar>
-        </subHeader>
-        <content>
-            <List 
-                id="list" 
-                select="onSelect" 
-                mode="{device>/listMode}" 
-                noDataText="{i18n>masterListNoDataText}" 
-                growing="true" 
-                growingScrollToLoad="true"				items="{/Trade}"> 
-                <items
-                    id="masterList">
-                    <ObjectListItem 
-                        id="mainListItem" 
-                        press="onSelect" 
-                        type="{device>/listItemType}" 
-                        counter="0"						title="{Name}"						number="{Phone}"						numberUnit="{Categ}"                        markFavorite="false" 
-                        markFlagged="false" 
-                        showMarkers="false">
-                        <core:ExtensionPoint 
-                            name="extListItemInfo"/>
-                    </ObjectListItem>
-                </items>
-            </List>
-        </content>
-        <footer
-            id="masterFooter">
-            <Toolbar 
-                id="masterToolbar">
-                <content>
-                    <footerbar:SettingsButton 
-                        id="settingsButton" 
-                        icon="sap-icon://action-settings" 
-                        tooltip="Help">
-                    </footerbar:SettingsButton>
-                </content>
-            </Toolbar>
-        </footer>
-    </Page>
+<mvc:View xmlns:core="sap.ui.core" xmlns:footerbar="sap.ushell.ui.footerbar" xmlns:mvc="sap.ui.core.mvc" xmlns:sap.ui.layout="sap.ui.layout" xmlns="sap.m" controllerName="destlist1.view.Master">
+	<Page id="masterPage" title="{i18n&gt;masterTitle}">
+		<headerContent>
+			<Button id="btnShowUnassigned" 
+				tooltip="{i18n>masterShowUnAssignedTitle}"
+				icon="sap-icon://offsite-work" 
+				type="Default"
+				press="onShowUnassignedBtnPress"
+				/>
+		</headerContent>
+		<subHeader>
+			<Bar id="searchBar">
+				<contentMiddle>
+					<SearchField id="searchField" placeholder="{i18n&gt;masterSearchPlaceholder}" search="onSearch" showRefreshButton="{device&gt;/isNoTouch}" tooltip="{i18n&gt;masterSearchTooltip}" width="100%"/>
+				</contentMiddle>
+			</Bar>
+		</subHeader>
+		<content>
+			<List growing="true" growingScrollToLoad="true" id="list" items="{/Trade}" mode="{device&gt;/listMode}" noDataText="{i18n&gt;masterListNoDataText}" select="onSelect">
+				<items id="masterList">
+					<ObjectListItem counter="0" id="mainListItem" markFavorite="false" markFlagged="false" number="{Phone}" numberUnit="{Categ}" press="onSelect" showMarkers="false" title="{Name}" type="{device&gt;/listItemType}">
+						<core:ExtensionPoint name="extListItemInfo"/>
+					</ObjectListItem>
+				</items>
+			</List>
+		</content>
+		<footer id="masterFooter">
+			<Toolbar id="masterToolbar">
+				<content>
+					<footerbar:SettingsButton icon="sap-icon://action-settings" id="settingsButton" tooltip="Help"/>
+				</content>
+			</Toolbar>
+		</footer>
+	</Page>
 </mvc:View>

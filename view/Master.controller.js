@@ -157,5 +157,10 @@ sap.ui.core.mvc.Controller.extend("destlist1.view.Master", {
 		oEventBus.unsubscribe("Detail", "TabChanged", this.onDetailTabChanged, this);
 		oEventBus.unsubscribe("Detail", "Changed", this.onDetailChanged, this);
 		oEventBus.unsubscribe("Detail", "NotFound", this.onNotFound, this);
+	},
+	
+	onShowUnassignedBtnPress: function(){
+		alert("hi");
 	}
+	
 });
