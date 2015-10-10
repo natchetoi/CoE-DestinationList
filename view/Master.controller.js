@@ -160,7 +160,11 @@ sap.ui.core.mvc.Controller.extend("destlist1.view.Master", {
 	},
 	
 	onShowUnassignedBtnPress: function(){
-		alert("hi");
+		var self = this;
+		var replaceView = jQuery.device.is.phone ? false : true;
+		self.getRouter().navTo("UnassignedOrders", {
+			from: "master"
+		}, replaceView);
 	}
 	
 });

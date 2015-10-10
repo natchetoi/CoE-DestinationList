@@ -29,41 +29,38 @@ sap.ui.core.UIComponent.extend("destlist1.Component", {
 				targetAggregation: "detailPages",
 				clearTarget: false
 			},
-			routes: [
-				{
-					pattern: "",
-					name: "main",
-					view: "Master",
-					targetAggregation: "masterPages",
-					targetControl: "idAppControl",
-					subroutes: [
-						{
-							pattern: "{entity}/:tab:",
-							name: "detail",
-							view: "Detail"
-						}, 
-						{
-							pattern: "{entity}/:tab:/{item}",
-							name: "itemDetail",
-							view: "itemDetail"
-                        }
-					]
-				},
-				{
-					name: "catchallMaster",
-					view: "Master",
-					targetAggregation: "masterPages",
-					targetControl: "idAppControl",
-					subroutes: [
-						{
-							pattern: ":all*:",
-							name: "catchallDetail",
-							view: "NotFound",
-							transition: "show"
-						}
-					]
-				}
-			]
+			routes: [{
+				pattern: "",
+				name: "main",
+				view: "Master",
+				targetAggregation: "masterPages",
+				targetControl: "idAppControl",
+				subroutes: [{
+						pattern: "UnassignedOrders",
+						name: "UnassignedOrders",
+						view: "UnassignedOrders"
+					}, {
+						pattern: "{entity}/:tab:",
+						name: "detail",
+						view: "Detail"
+					}, {
+						pattern: "{entity}/:tab:/{item}",
+						name: "itemDetail",
+						view: "itemDetail"
+					}
+				]
+			}, {
+				name: "catchallMaster",
+				view: "Master",
+				targetAggregation: "masterPages",
+				targetControl: "idAppControl",
+				subroutes: [{
+					pattern: ":all*:",
+					name: "catchallDetail",
+					view: "NotFound",
+					transition: "show"
+				}]
+			}]
 		}
 	},
 
