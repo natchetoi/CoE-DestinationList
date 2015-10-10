@@ -5,9 +5,9 @@ sap.ui.controller("destlist1.view.UnassignedOrders", {
 	 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 	 * @memberOf view.UnassignedOrders
 	 */
-	//	onInit: function() {
-	//
-	//	},
+	onInit: function() {
+	
+	},
 
 	/**
 	 * Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
@@ -35,4 +35,11 @@ sap.ui.controller("destlist1.view.UnassignedOrders", {
 	//
 	//	}
 
+	onNavBack: function(){
+		this.getRouter().myNavBack("main");
+	},
+	
+	getRouter: function() {
+		return sap.ui.core.UIComponent.getRouterFor(this);
+	}
 });

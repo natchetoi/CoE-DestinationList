@@ -1,92 +1,82 @@
-<mvc:View xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" controllerName="destlist1.view.Detail">
-    <Page id="detailPage" navButtonPress="onNavBack" title="{i18n&gt;detailTitle}" showNavButton="{device&gt;/isPhone}">
-        <content>
-            <ObjectHeader id="detailHeader" title="{Name}" number="{Phone}" numberUnit="{Categ}" introActive="false" titleActive="false" iconActive="false">
-                <attributes id="detailAttributes">                
-                    <ObjectAttribute id="attribute" text="{i18n&gt;detailText}" active="false">
-                    </ObjectAttribute>
-                </attributes>
-                <firstStatus id="detailStatus">
-                    <ObjectStatus id="status" text="{Pernr}">
-                    </ObjectStatus>
-                </firstStatus>
-            </ObjectHeader>
-            <IconTabBar id="idIconTabBar" expanded="{device&gt;/isNoPhone}">
-    			<items id="detailsItems">
-                    <IconTabFilter id="iconTabFilter1" key="selfInfo" icon="sap-icon://hint">
-                        <content>
-							<f:SimpleForm id="iconTabFilter1form" minWidth="1024" editable="false" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="4" emptySpanM="4" columnsL="1">
+<mvc:View controllerName="destlist1.view.Detail" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout"
+	xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+	<Page id="detailPage" navButtonPress="onNavBack" showNavButton="{device&gt;/isPhone}" title="{i18n&gt;detailTitle}">
+		<content>
+			<ObjectHeader iconActive="false" id="detailHeader" introActive="false" number="{Phone}" numberUnit="{Categ}" title="{Name}"
+				titleActive="false">
+				<attributes id="detailAttributes">
+					<ObjectAttribute active="false" id="attribute" text="{i18n&gt;detailText}"></ObjectAttribute>
+				</attributes>
+				<firstStatus id="detailStatus">
+					<ObjectStatus id="status" text="{Pernr}"></ObjectStatus>
+				</firstStatus>
+			</ObjectHeader>
+			<IconTabBar expanded="{device&gt;/isNoPhone}" id="idIconTabBar">
+				<items id="detailsItems">
+					<IconTabFilter icon="sap-icon://hint" id="iconTabFilter1" key="selfInfo">
+						<content>
+							<f:SimpleForm columnsL="1" editable="false" emptySpanL="4" emptySpanM="4" id="iconTabFilter1form" labelSpanL="3" labelSpanM="3"
+								layout="ResponsiveGridLayout" minWidth="1024">
 								<f:content>
-									<Label id="label1" text="Name">
-									</Label>
-									<Text id="text1" text="{Name}" maxLines="0">
-									</Text>
-									<Label id="label2" text="Division">
-									</Label>
-									<Text id="text2" text="{Division}" maxLines="0">
-									</Text>
-									<Label id="label3" text="Pernr">
-									</Label>
-									<Text id="text3" text="{Pernr}" maxLines="0">
-									</Text>
+									<Label id="label1" text="Name"></Label>
+									<Text id="text1" maxLines="0" text="{Name}"></Text>
+									<Label id="label2" text="Division"></Label>
+									<Text id="text2" maxLines="0" text="{Division}"></Text>
+									<Label id="label3" text="Pernr"></Label>
+									<Text id="text3" maxLines="0" text="{Pernr}"></Text>
 									<core:ExtensionPoint name="extIconTabFilterForm1"/>
 								</f:content>
 							</f:SimpleForm>
-                        </content>
-                    </IconTabFilter>
-                    <IconTabFilter id="iconTabFilter2"  icon="sap-icon://task">
-                        <content>
-            <Table noDataText="Drop column list items here and columns in the area above" id="__table0" 
-                        itemPress="onItemDetailPressed" 
-                        items="{path: 'Destinations'}"  >
-                <items>
-                    <ColumnListItem counter="0" id="__item0" type="Navigation" >
-                        <cells>
-                    		    <Text text="{Address}" maxLines="0"/>
-                    		    <Text text="{Item}" maxLines="0"/>
-                    		    <Text text="{FunLocation}" maxLines="0"/>
-                        </cells>
-                    </ColumnListItem>
-                </items>
-                <columns>
-                    <Column id="__column0">
-                        <header>
-                            <Label text="Address" id="__label0"/>
-                        </header>
-                        <Text text="Address"/>
-                    </Column>
-                    <Column id="__column1">
-                        <header>
-                            <Label text="Start time" id="__label1"/>
-                        </header>
-                        <Text text="Start TIme"/>
-                    </Column>
-                    <Column id="__column2">
-                        <header>
-                            <Label text="FunLocation" id="__label2"/>
-                        </header>
-                        <Text text="Fun.Location#"/>
-                    </Column>
-                </columns>
-                    </Table>
-
-                        </content>
-                    </IconTabFilter>
-    				<core:ExtensionPoint name="extIconTabFilter"/>
-                </items>
-            </IconTabBar>
-
-    		<core:ExtensionPoint name="extDetail"/>
-        </content>
-        <footer id="detailFooter">
-            <Toolbar id="detailToolbar">
-                <content>
-                    <ToolbarSpacer id="toolbarSpacer">
-                    </ToolbarSpacer>
-                    <Button id="actionButton" press="openActionSheet" icon="sap-icon://action">
-                    </Button>
-                </content>
-            </Toolbar>
-        </footer>
-    </Page>
+						</content>
+					</IconTabFilter>
+					<IconTabFilter icon="sap-icon://task" id="iconTabFilter2">
+						<content>
+							<Table id="__table0" itemPress="onItemDetailPressed" items="{path: 'Destinations'}"
+								noDataText="Drop column list items here and columns in the area above">
+								<items>
+									<ColumnListItem counter="0" id="__item0" type="Navigation">
+										<cells>
+											<Text maxLines="0" text="{Address}"/>
+											<Text maxLines="0" text="{Item}"/>
+											<Text maxLines="0" text="{FunLocation}"/>
+										</cells>
+									</ColumnListItem>
+								</items>
+								<columns>
+									<Column id="__column0">
+										<header>
+											<Label id="__label0" text="Address"/>
+										</header>
+										<Text text="Address"/>
+									</Column>
+									<Column id="__column1">
+										<header>
+											<Label id="__label1" text="Start time"/>
+										</header>
+										<Text text="Start TIme"/>
+									</Column>
+									<Column id="__column2">
+										<header>
+											<Label id="__label2" text="FunLocation"/>
+										</header>
+										<Text text="Fun.Location#"/>
+									</Column>
+								</columns>
+							</Table>
+						</content>
+					</IconTabFilter>
+					<core:ExtensionPoint name="extIconTabFilter"/>
+				</items>
+			</IconTabBar>
+			<core:ExtensionPoint name="extDetail"/>
+		</content>
+		<footer id="detailFooter">
+			<Toolbar id="detailToolbar">
+				<content>
+					<ToolbarSpacer id="toolbarSpacer"></ToolbarSpacer>
+					<Button icon="sap-icon://action" id="actionButton" press="openActionSheet"></Button>
+				</content>
+			</Toolbar>
+		</footer>
+	</Page>
 </mvc:View>
