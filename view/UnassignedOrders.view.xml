@@ -1,12 +1,12 @@
 <core:View controllerName="destlist1.view.UnassignedOrders" xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml"
 	xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
-	<Page navButtonPress="onNavBack" showNavButton="true" title="{i18n&gt;unassignedOrdersTitle}">
+	<Page class="sapUiContentPadding" navButtonPress="onNavBack" showNavButton="true" title="{i18n&gt;unassignedOrdersTitle}">
 		<content>
 			<l:VerticalLayout>
 				<FlexBox alignItems="Center" justifyContent="Start">
 					<Title text="Select trade" titleStyle="H3" width="100%"/>
 					<Select id="_selectTrade" items="{path: '/Trade', sorter: { path: 'Name' }}" name="{Name}" selectedItemId="{Pernr}" selectedKey="{Pernr}">
-						<core:Item key="{Pernr}" text="{Name}"></core:Item>
+						<core:Item key="{Pernr}" text="{Name}"/>
 					</Select>
 				</FlexBox>
 				<Toolbar>
@@ -14,7 +14,7 @@
 					<ToolbarSpacer/>
 					<SearchField/>
 				</Toolbar>
-				<Table>
+				<Table items="{path: '/Destination'}" mode="MultiSelect">
 					<columns>
 						<Column width="11rem">
 							<Text text="{i18n&gt;unassignedOrdersAddressTitle}"/>
@@ -23,6 +23,14 @@
 							<Text text="{i18n&gt;unassignedOrdersStartTimeTitle}"/>
 						</Column>
 					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<ObjectIdentifier text="{WO}" title="{Address}"/>
+								<Text text="{Item}"/>
+							</cells>
+						</ColumnListItem>
+					</items>
 				</Table>
 			</l:VerticalLayout>
 		</content>

@@ -1,18 +1,12 @@
 <core:View xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:map="sap.ui.vbm.GeoMap" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="destlist1.view.itemDetail">
-	<Page navButtonPress="onNavBack" showNavButton="true" title="Item Detail">
+	<Page navButtonPress="onNavBack" showNavButton="true" title="{i18n>destinationDetailsTitle}">
 		<content>
-			<f:SimpleForm xmlns="sap.ui.layout" columnsL="2" columnsM="1" editable="" id="form11" labelMinWidth="192" layout="ResponsiveLayout" maxContainerCols="2">
-				<core:Title emphasized="false" icon="" level="Auto" text="Destination Details"/>
-			</f:SimpleForm>
-				
-			<Label text="Func.Location#" width="100%" id="__label0"/>
-			<Text text="{FunLocation}" maxLines="0" id="__text2"/>
-			<Label text="Address" width="100%" id="__label3"/>
-			<Text text="{Address}" maxLines="0" id="__text4"/>
-			<Label text="Start Time" width="100%" id="__label5"/>
-			<Text text="{Item}" maxLines="0" id="__text6"/> 
-			<Image src="../images/map.png" width="100%" height="100%" id="__image0"/>
-             
+			<ObjectHeader
+				title="{Address}">
+				<attributes>
+					<ObjectAttribute text="{i18n>destinationDetailsStartTime}: {Item}" />
+				</attributes>
+			</ObjectHeader>
 		</content>
 	</Page>
 </core:View>
