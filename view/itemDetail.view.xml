@@ -1,12 +1,17 @@
-<core:View xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:map="sap.ui.vbm.GeoMap" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="destlist1.view.itemDetail">
+<core:View controllerName="destlist1.view.itemDetail" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:gmaps="openui5.googlemaps"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
 	<Page navButtonPress="onNavBack" showNavButton="true" title="{i18n>destinationDetailsTitle}">
 		<content>
-			<ObjectHeader
-				title="{Address}">
+			<ObjectHeader title="{Address}">
 				<attributes>
-					<ObjectAttribute text="{i18n>destinationDetailsStartTime}: {Item}" />
+					<ObjectAttribute text="{i18n>destinationDetailsStartTime}: {Item}"/>
 				</attributes>
 			</ObjectHeader>
+			<gmaps:Map height="250px" lat="-33.895" lng="151.275" zoom="12">
+				<gmaps:markers>
+					<gmaps:Marker info="Bondi Beach" lat="-33.895" lng="151.275"/>
+				</gmaps:markers>
+			</gmaps:Map>
 		</content>
 	</Page>
 </core:View>

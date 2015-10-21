@@ -7,6 +7,7 @@ sap.ui.controller("destlist1.view.itemDetail", {
 	 */
 
 	onInit: function() {
+		sap.ui.getCore().loadLibrary("openui5.googlemaps", "./libs/openui5/googlemaps/");
 		var view = this.getView();
 		this.getRouter().attachRouteMatched(function(oEvent) {
 			var sContextPath = new sap.ui.model.Context(view.getModel(), "/" +
