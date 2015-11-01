@@ -1,1 +1,386 @@
-sap.ui.define(["jquery.sap.global","sap/ui/core/Control","sap/ui/core/ResizeHandler","google.maps","./MapUtils","./MapTypeId"],function(t,e,i,o,s,a){"use strict";var n=e.extend("openui5.googlemaps.Map",{metadata:{properties:{lat:{type:"float",bindable:"bindable",defaultValue:1},lng:{type:"float",bindable:"bindable",defaultValue:1},width:{type:"sap.ui.core.CSSSize",group:"Dimension",defaultValue:"auto"},height:{type:"sap.ui.core.CSSSize",group:"Dimension",defaultValue:"20em"},zoom:{type:"int",defaultValue:8},disableDefaultUI:{type:"boolean",defaultValue:!0},mapTypeId:{type:"string",defaultValue:a.ROADMAP},panControl:{type:"boolean",defaultValue:!1},zoomControl:{type:"boolean",defaultValue:!1},mapTypeControl:{type:"boolean",defaultValue:!1},streetViewControl:{type:"boolean",defaultValue:!1}},defaultAggregation:"markers",aggregations:{markers:{type:"openui5.googlemaps.Marker",multiple:!0,bindable:"bindable"},polylines:{type:"openui5.googlemaps.Polyline",multiple:!0,bindable:"bindable"},polygons:{type:"openui5.googlemaps.Polygon",multiple:!0,bindable:"bindable"},directions:{type:"openui5.googlemaps.Directions",multiple:!1,bindable:"bindable"},markerCluster:{type:"openui5.googlemaps.MarkerCluster",multiple:!1,bindable:"bindable"}},events:{ready:{},click:{}}},renderer:function(t,e){t.write("<div "),t.writeControlData(e),t.addStyle("width","auto"),t.addStyle("height","auto"),t.writeClasses(),t.writeStyles(),t.write(">"),t.renderControl(e._html),t.write("</div>")}});return n.prototype.init=function(){this._dragging=!1,this.aListeners=[],this.mapId=this.getId()+"-map",this._html=new sap.ui.core.HTML({content:"<div style='height: "+this.getHeight()+";width: "+this.getWidth()+";' id='"+this.mapId+"'></div>"})},n.prototype.setHeight=function(t){this.setProperty("height",t,!0),this.setSize()},n.prototype.setWidth=function(t){this.setProperty("width",t,!0),this.setSize()},n.prototype.setSize=function(){if(t.sap.domById(this.mapId))t.sap.byId(this.mapId).css("height",this.getHeight()).css("width",this.getWidth());else{var e=t(this._html.getContent());e.css("height",this.getHeight()).css("width",this.getWidth()),this._html.setContent(e.outerHTML())}},n.prototype.setZoom=function(t){this.setProperty("zoom",t,!0),this.map&&t!==this.map.getZoom()&&this.map.setZoom(t)},n.prototype.setLat=function(t){var e=parseFloat(t);s.floatEqual(e,this.getLat())||(this.setProperty("lat",e,!0),this._updateCenter())},n.prototype.setLng=function(t){var e=parseFloat(t);s.floatEqual(e,this.getLng())||(this.setProperty("lng",e,!0),this._updateCenter())},n.prototype._updateCenter=function(){this.map&&null!=this.getLat()&&null!=this.getLng()&&(t.sap.clearDelayedCall(this.delayedCallId),this.delayedCallId=t.sap.delayedCall(0,this,function(){this.map.setCenter(new o.LatLng(this.getLat(),this.getLng())),this.notifyAggregations("MapRendered")}))},n.prototype.setMapTypeId=function(t){this.setProperty("mapTypeId",t,!0),this.map&&t!==this.map.getMapTypeId()&&this.map.setMapTypeId(t)},n.prototype.setZoomControl=function(t){this.setProperty("zoomControl",t,!0),this.map&&t!==this.map.zoomControl&&(this.map.zoomControl=t)},n.prototype.setDisableDefaultUI=function(t){this.setProperty("disableDefaultUI",t,!0),this.map&&this.map.setOptions({disableDefaultUI:this.getDisableDefaultUI()})},n.prototype.zoomChanged=function(){this.map.getZoom()!==this.getZoom()&&this.setZoom(this.map.getZoom())},n.prototype.mapTypeIdChanged=function(){this.map.getMapTypeId()!==this.getMapTypeId()&&this.setMapTypeId(this.map.getMapTypeId())},n.prototype.onResize=function(){var t=this.map.getCenter();this.trigger("resize"),this.map.setCenter(t)},n.prototype._getMapOptions=function(){var t={};return t.zoom=this.getZoom(),t.center=new o.LatLng(this.getLat(),this.getLng()),t.disableDefaultUI=this.getDisableDefaultUI(),t.mapTypeId=this.getMapTypeId(),t.panControl=this.getPanControl(),t.zoomControl=this.getZoomControl(),t.mapTypeControl=this.getMapTypeControl(),t.streetViewControl=this.getStreetViewControl(),t},n.prototype.notifyAggregations=function(t){this._notifyMarkers(t,this.map),this._notifyPolylines(t,this.map),this._notifyPolygons(t,this.map),this._notifyDirections(t,this.map),this._notifyMarkerCluster(t,this.map)},n.prototype.onAfterRendering=function(){return void 0===o.loaded?(void 0===this.subscribed&&(sap.ui.getCore().getEventBus().subscribe(o.notifyEvent,this.createMap,this),this.subscribed=!0),!1):(this.initialized?this._updateCenter():this.createMap(),void 0)},n.prototype.createMap=function(){this.getLat()&&this.getLng()&&(this.map=new o.Map(t.sap.domById(this.mapId),this._getMapOptions()),this.notifyAggregations("MapRendered"),this.addListener("drag",t.proxy(this.isDragging,this)),this.addListener("dragstart",t.proxy(this.isDragging,this)),this.addListener("zoom_changed",t.proxy(this.zoomChanged,this)),this.addListener("center_changed",t.proxy(this.updateValues,this)),this.addListener("idle",t.proxy(this.mapChanged,this)),this.addListener("maptypeid_changed",t.proxy(this.mapTypeIdChanged,this)),this.addListener("click",t.proxy(this.clicked,this)),this.resizeID=i.register(t.sap.domById(this.mapId),t.proxy(this.onResize,this)),this.initialized=!0)},n.prototype.addListener=function(t,e){this.aListeners.push(o.event.addListener(this.map,t,e))},n.prototype.removeListeners=function(){this.aListeners.forEach(function(t){t.remove()}),this.aListeners=[]},n.prototype.trigger=function(t){o.event.trigger(this.map,t)},n.prototype.isDragging=function(){this._dragging=!0},n.prototype.isNotDragging=function(){this._dragging=!1},n.prototype.mapChanged=function(){this._dragging&&this.isNotDragging(),this.updateValues(),this.fireReady({map:this.map,context:this.getBindingContext(),lat:this.getLat(),lng:this.getLng()})},n.prototype.updateValues=function(){var t=s.latLngToObj(this.map.getCenter());s.floatEqual(t.lat,this.getLat())||this.setProperty("lat",t.lat,!0),s.floatEqual(t.lng,this.getLng())||this.setProperty("lng",t.lng,!0)},n.prototype._notifyMarkers=function(t,e){this.getMarkers().forEach(function(i){i["on"+t](e)})},n.prototype._notifyPolylines=function(t,e){this.getPolylines().forEach(function(i){i["on"+t](e)})},n.prototype._notifyPolygons=function(t,e){this.getPolygons().forEach(function(i){i["on"+t](e)})},n.prototype._notifyDirections=function(t,e){this.getDirections()&&this.getDirections()["on"+t](e)},n.prototype._notifyMarkerCluster=function(t,e){this.getMarkerCluster()&&this.getMarkerCluster()["on"+t](e)},n.prototype.resetMap=function(){this.removeListeners(),this.map&&this.map.set(null)},n.prototype.exit=function(){this.resetMap(),i.deregister(this.resizeID)},n.prototype.clicked=function(t){this.fireClick({map:this.map,context:this.getBindingContext(),lat:t.latLng.H,lng:t.latLng.L})},n},!0);
+/**
+ * openui5-googlemaps - OpenUI5 Google Maps library
+ * @version v0.0.17
+ * @link http://jasper07.github.io/openui5-googlemaps/
+ * @license MIT
+ *//*
+Notes: Must not use 'on' as a prefix to event handlers as they
+are reserved. See:
+https://openui5.hana.ondemand.com/#docs/guide/91f0a8dc6f4d1014b6dd926db0e91070.html
+*/
+sap.ui.define(['jquery.sap.global', 'sap/ui/core/Control', 'sap/ui/core/ResizeHandler', 'google.maps', './MapUtils', './MapTypeId'],
+    function(jQuery, Control, ResizeHandler, Gmaps, MapUtils, MapTypeId) {
+        "use strict";
+        var Map = Control.extend('openui5.googlemaps.Map', {
+            metadata: {
+                properties: {
+                    'lat': {
+                        type: 'float',
+                        bindable: 'bindable',
+                        defaultValue: 1
+                    },
+                    'lng': {
+                        type: 'float',
+                        bindable: 'bindable',
+                        defaultValue: 1
+                    },
+                    'width': {
+                        type: 'sap.ui.core.CSSSize',
+                        group: 'Dimension',
+                        defaultValue: 'auto'
+                    },
+                    'height': {
+                        type: 'sap.ui.core.CSSSize',
+                        group: 'Dimension',
+                        defaultValue: '20em'
+                    },
+                    'zoom': {
+                        type: 'int',
+                        defaultValue: 8
+                    },
+                    'disableDefaultUI': {
+                        type: 'boolean',
+                        defaultValue: true
+                    },
+                    'mapTypeId': {
+                        type: 'string',
+
+                        defaultValue: MapTypeId.ROADMAP
+                    },
+                    'panControl': {
+                        type: 'boolean',
+                        defaultValue: false
+                    },
+                    'zoomControl': {
+                        type: 'boolean',
+                        defaultValue: false
+                    },
+                    'mapTypeControl': {
+                        type: 'boolean',
+                        defaultValue: false
+                    },
+                    'streetViewControl': {
+                        type: 'boolean',
+                        defaultValue: false
+                    }
+                },
+                defaultAggregation: "markers",
+                aggregations: {
+                    'markers': {
+                        type: 'openui5.googlemaps.Marker',
+                        multiple: true,
+                        bindable: 'bindable'
+                    },
+                    'polylines': {
+                        type: 'openui5.googlemaps.Polyline',
+                        multiple: true,
+                        bindable: 'bindable'
+                    },
+                    'polygons': {
+                        type: 'openui5.googlemaps.Polygon',
+                        multiple: true,
+                        bindable: 'bindable'
+                    },
+                    'directions': {
+                        type: 'openui5.googlemaps.Directions',
+                        multiple: false,
+                        bindable: 'bindable'
+                    },
+                    'markerCluster': {
+                        type: 'openui5.googlemaps.MarkerCluster',
+                        multiple: false,
+                        bindable: 'bindable'
+                    }
+                },
+                events: {
+                    'ready': {},
+                    'click': {}
+                }
+            },
+            renderer: function(oRm, oControl) {
+                oRm.write('<div ');
+                oRm.writeControlData(oControl);
+                oRm.addStyle("width", 'auto');
+                oRm.addStyle("height", 'auto');
+                oRm.writeClasses();
+                oRm.writeStyles();
+                oRm.write('>');
+                oRm.renderControl(oControl._html);
+                oRm.write('</div>');
+            }
+        });
+
+        Map.prototype.init = function() {
+            this._dragging = false;
+            this.aListeners = [];
+            this.mapId = this.getId() + "-map";
+            this._html = new sap.ui.core.HTML({
+                content: "<div style='height: " + this.getHeight() + ";width: " + this.getWidth() + ";' id='" + this.mapId + "'></div>"
+            });
+        };
+
+        Map.prototype.setHeight = function(sValue) {
+            this.setProperty('height', sValue, true);
+            this.setSize();
+        };
+
+        Map.prototype.setWidth = function(sValue) {
+            this.setProperty('width', sValue, true);
+            this.setSize();
+        };
+
+        Map.prototype.setSize = function() {
+            if (!jQuery.sap.domById(this.mapId)) {
+                var content = jQuery(this._html.getContent());
+                content.css("height", this.getHeight()).css("width", this.getWidth());
+                this._html.setContent(content.outerHTML());
+            } else {
+                jQuery.sap.byId(this.mapId).css("height", this.getHeight()).css("width", this.getWidth());
+            }
+        };
+
+        Map.prototype.setZoom = function(iValue) {
+            this.setProperty('zoom', iValue, true);
+            if (this.map && iValue !== this.map.getZoom()) {
+                this.map.setZoom(iValue);
+            }
+        };
+
+        Map.prototype.setLat = function(oValue) {
+            var val = parseFloat(oValue);
+            if (!MapUtils.floatEqual(val, this.getLat())) {
+                this.setProperty('lat', val, true);
+                this._updateCenter();
+            }
+        };
+
+        Map.prototype.setLng = function(oValue) {
+            var val = parseFloat(oValue);
+            if (!MapUtils.floatEqual(val, this.getLng())) {
+                this.setProperty('lng', val, true);
+                this._updateCenter();
+            }
+        };
+
+        Map.prototype._updateCenter = function() {
+            if (!this.map || this.getLat() == null || this.getLng() == null) {
+                return;
+            }
+
+            // delay if lat and lng updated through binding
+            jQuery.sap.clearDelayedCall(this.delayedCallId);
+            this.delayedCallId = jQuery.sap.delayedCall(0, this, function() {
+                this.map.setCenter(new Gmaps.LatLng(this.getLat(), this.getLng()));
+                this.notifyAggregations('MapRendered');
+            });
+        };
+
+        Map.prototype.setMapTypeId = function(sValue) {
+            this.setProperty('mapTypeId', sValue, true);
+            if (this.map && sValue !== this.map.getMapTypeId()) {
+                this.map.setMapTypeId(sValue);
+            }
+        };
+
+        Map.prototype.setZoomControl = function(bValue) {
+            this.setProperty('zoomControl', bValue, true);
+            if (this.map && bValue !== this.map.zoomControl) {
+                this.map.zoomControl = bValue;
+            }
+        };
+
+        Map.prototype.setDisableDefaultUI = function(bValue) {
+            this.setProperty('disableDefaultUI', bValue, true);
+            if (this.map) {
+                this.map.setOptions({
+                    disableDefaultUI: this.getDisableDefaultUI()
+                });
+            }
+        };
+
+        Map.prototype.zoomChanged = function() {
+            if (this.map.getZoom() !== this.getZoom()) {
+                this.setZoom(this.map.getZoom());
+            }
+        };
+
+        Map.prototype.mapTypeIdChanged = function() {
+            if (this.map.getMapTypeId() !== this.getMapTypeId()) {
+                this.setMapTypeId(this.map.getMapTypeId());
+            }
+        };
+
+        Map.prototype.onResize = function() {
+            var center = this.map.getCenter();
+            this.trigger("resize");
+            this.map.setCenter(center);
+        };
+
+        Map.prototype._getMapOptions = function() {
+            var mapOptions = {};
+            mapOptions.zoom = this.getZoom();
+            mapOptions.center = new Gmaps.LatLng(this.getLat(), this.getLng());
+            mapOptions.disableDefaultUI = this.getDisableDefaultUI();
+            mapOptions.mapTypeId = this.getMapTypeId();
+            mapOptions.panControl = this.getPanControl();
+            mapOptions.zoomControl = this.getZoomControl();
+            mapOptions.mapTypeControl = this.getMapTypeControl();
+            mapOptions.streetViewControl = this.getStreetViewControl();
+            return mapOptions;
+        };
+
+        Map.prototype.notifyAggregations = function(sEvent) {
+            // notify markers, polylines and poloygons
+            this._notifyMarkers(sEvent, this.map);
+            this._notifyPolylines(sEvent, this.map);
+            this._notifyPolygons(sEvent, this.map);
+            this._notifyDirections(sEvent, this.map);
+            this._notifyMarkerCluster(sEvent, this.map);
+        };
+
+        Map.prototype.onAfterRendering = function() {
+            //if map not loaded yet subscribe to its event
+            if (Gmaps.loaded === undefined) {
+                if (this.subscribed === undefined) {
+                    sap.ui.getCore().getEventBus().subscribe(Gmaps.notifyEvent, this.createMap, this);
+                    this.subscribed = true;
+                }
+                return false;
+            }
+
+            if (!this.initialized) {
+                this.createMap();
+            } else {
+                this._updateCenter();
+            }
+        };
+
+        Map.prototype.createMap = function() {
+            if (!this.getLat() || !this.getLng()) {
+                return;
+            }
+
+            //  create map
+            this.map = new Gmaps.Map(jQuery.sap.domById(this.mapId), this._getMapOptions());
+
+            this.notifyAggregations('MapRendered');
+
+            // set up listeners
+            this.addListener('drag', jQuery.proxy(this.isDragging, this));
+            this.addListener('dragstart', jQuery.proxy(this.isDragging, this));
+            this.addListener('zoom_changed', jQuery.proxy(this.zoomChanged, this));
+            this.addListener('center_changed', jQuery.proxy(this.updateValues, this));
+            this.addListener('idle', jQuery.proxy(this.mapChanged, this));
+            // this.addListener('bounds_changed', jQuery.proxy(this.updateValues, this)); //TODO
+            this.addListener('maptypeid_changed', jQuery.proxy(this.mapTypeIdChanged, this));
+            this.addListener('click', jQuery.proxy(this.clicked, this));
+
+            this.resizeID = ResizeHandler.register(jQuery.sap.domById(this.mapId), jQuery.proxy(this.onResize, this));
+
+            this.initialized = true;
+        };
+
+        Map.prototype.addListener = function(event, callback) {
+            this.aListeners.push(Gmaps.event.addListener(this.map, event, callback));
+        };
+
+        Map.prototype.removeListeners = function() {
+            this.aListeners.forEach(function(oListener) {
+                oListener.remove();
+            });
+            this.aListeners = [];
+        };
+
+        Map.prototype.trigger = function(event) {
+            Gmaps.event.trigger(this.map, event);
+        };
+
+        Map.prototype.isDragging = function() {
+            this._dragging = true;
+        };
+
+        Map.prototype.isNotDragging = function() {
+            this._dragging = false;
+        };
+
+        Map.prototype.mapChanged = function() {
+            if (this._dragging) {
+                this.isNotDragging();
+            }
+
+            this.updateValues();
+            this.fireReady({
+                map: this.map,
+                context: this.getBindingContext(),
+                lat: this.getLat(),
+                lng: this.getLng()
+            });
+        };
+
+        Map.prototype.updateValues = function(oEvent) {
+            var center = MapUtils.latLngToObj(this.map.getCenter());
+
+            if (!MapUtils.floatEqual(center.lat, this.getLat())) {
+                this.setProperty('lat', center.lat, true);
+            }
+
+            if (!MapUtils.floatEqual(center.lng, this.getLng())) {
+                this.setProperty('lng', center.lng, true);
+            }
+        };
+
+        Map.prototype._notifyMarkers = function(action, param) {
+            this.getMarkers().forEach(function(oMarker) {
+                oMarker["on" + action](param);
+            });
+        };
+
+        Map.prototype._notifyPolylines = function(action, param) {
+            this.getPolylines().forEach(function(oPolyline) {
+                oPolyline["on" + action](param);
+            });
+        };
+
+        Map.prototype._notifyPolygons = function(action, param) {
+            this.getPolygons().forEach(function(oPolygons) {
+                oPolygons["on" + action](param);
+            });
+        };
+
+        Map.prototype._notifyDirections = function(action, param) {
+            if (this.getDirections()) {
+                this.getDirections()["on" + action](param);
+            }
+        };
+
+        Map.prototype._notifyMarkerCluster = function(action, param) {
+            if (this.getMarkerCluster()) {
+                this.getMarkerCluster()["on" + action](param);
+            }
+        };
+
+
+        Map.prototype.resetMap = function() {
+            this.removeListeners();
+            if (this.map) {
+                this.map.set(null);
+            }
+        };
+
+        Map.prototype.exit = function() {
+            this.resetMap();
+            ResizeHandler.deregister(this.resizeID);
+        };
+
+        Map.prototype.clicked = function(oEvent) {
+            this.fireClick({
+                map: this.map,
+                context: this.getBindingContext(),
+                lat: oEvent.latLng.H,
+                lng: oEvent.latLng.L
+            });
+        };
+
+        return Map;
+
+    }, /* bExport= */ true);

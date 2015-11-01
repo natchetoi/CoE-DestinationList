@@ -43,20 +43,10 @@ sap.ui.core.mvc.Controller.extend("destlist1.view.Detail", {
 
 			var oIconTabBar = oView.byId("idIconTabBar");
 			oIconTabBar.getItems().forEach(function(oItem) {
-				if (oItem.getKey() !== "selfInfo") {
+				if (oItem.getId() === "iconTabFilterOrders") {
 					oItem.bindElement(oItem.getKey());
 				}
 			});
-
-			// Specify the tab being focused
-			var sTabKey = oParameters.arguments.tab;
-			this.getEventBus().publish("Detail", "TabChanged", {
-				sTabKey: sTabKey
-			});
-
-			if (oIconTabBar.getSelectedKey() !== sTabKey) {
-				oIconTabBar.setSelectedKey(sTabKey);
-			}
 		}, this));
 
 	},

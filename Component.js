@@ -66,14 +66,13 @@ sap.ui.core.UIComponent.extend("destlist1.Component", {
 
 	init: function() {
 		sap.ui.core.UIComponent.prototype.init.apply(this, arguments);
-
+		sap.ui.getCore().loadLibrary("openui5.googlemaps", "libs/openui5/googlemaps/");
+		
 		var mConfig = this.getMetadata().getConfig();
 
 		// Always use absolute paths relative to our own component
 		// (relative paths will fail if running in the Fiori Launchpad)
 		var oRootPath = jQuery.sap.getModulePath("destlist1");
-		
-		jQuery.sap.registerModulePath("openui5.googlemaps", [oRootPath, "libs/openui5/googlemaps/"].join("/")); 
 
 		// Set i18n model
 		var i18nModel = new sap.ui.model.resource.ResourceModel({

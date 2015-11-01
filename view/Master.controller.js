@@ -4,7 +4,6 @@ sap.ui.core.mvc.Controller.extend("destlist1.view.Master", {
 		this.oInitialLoadFinishedDeferred = jQuery.Deferred();
 
 		var oEventBus = this.getEventBus();
-		oEventBus.subscribe("Detail", "TabChanged", this.onDetailTabChanged, this);
 
 		var oList = this.getView().byId("list");
 		oList.attachEvent("updateFinished", function() {
@@ -139,8 +138,7 @@ sap.ui.core.mvc.Controller.extend("destlist1.view.Master", {
 		var bReplace = jQuery.device.is.phone ? false : true;
 		this.getRouter().navTo("detail", {
 			from: "master",
-			entity: oItem.getBindingContext().getPath().substr(1),
-			tab: this.sTab
+			entity: oItem.getBindingContext().getPath().substr(1)
 		}, bReplace);
 	},
 

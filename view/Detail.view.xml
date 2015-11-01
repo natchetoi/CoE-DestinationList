@@ -1,38 +1,31 @@
-<mvc:View controllerName="destlist1.view.Detail" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout"
-	xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
+<mvc:View xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="destlist1.view.Detail">
 	<Page id="detailPage" navButtonPress="onNavBack" showNavButton="{device&gt;/isPhone}" title="{i18n&gt;detailTitle}">
 		<content>
-			<ObjectHeader iconActive="false" id="detailHeader" introActive="false" number="{Phone}" numberUnit="{Categ}" title="{Name}"
-				titleActive="false">
-				<attributes id="detailAttributes">
-					<ObjectAttribute active="false" id="attribute" text="{i18n&gt;detailText}"></ObjectAttribute>
-				</attributes>
-				<firstStatus id="detailStatus">
-					<ObjectStatus id="status" text="{Pernr}"></ObjectStatus>
-				</firstStatus>
-			</ObjectHeader>
-			<IconTabBar expanded="{device&gt;/isNoPhone}" id="idIconTabBar">
+			<ObjectHeader iconActive="false" id="detailHeader" introActive="false" number="{Phone}" numberUnit="{Categ}" title="{Name}" titleActive="false"/>
+			<IconTabBar expanded="true" id="idIconTabBar">
 				<items id="detailsItems">
-					<IconTabFilter icon="sap-icon://hint" id="iconTabFilter1" key="selfInfo">
+					<IconTabFilter icon="sap-icon://hint" text="{i18n&gt;detailsInfoTabTitle}" id="iconTabFilter1" key="tabSelfInfo">
 						<content>
-							<f:SimpleForm columnsL="1" editable="false" emptySpanL="4" emptySpanM="4" id="iconTabFilter1form" labelSpanL="3" labelSpanM="3"
-								layout="ResponsiveGridLayout" minWidth="1024">
+							<f:SimpleForm columnsL="1" editable="false" emptySpanL="4" emptySpanM="4" id="iconTabFilter1form" labelSpanL="3" labelSpanM="3" layout="ResponsiveGridLayout" minWidth="1024">
 								<f:content>
-									<Label id="label1" text="Name"></Label>
-									<Text id="text1" maxLines="0" text="{Name}"></Text>
-									<Label id="label2" text="Division"></Label>
-									<Text id="text2" maxLines="0" text="{Division}"></Text>
-									<Label id="label3" text="Pernr"></Label>
-									<Text id="text3" maxLines="0" text="{Pernr}"></Text>
+									<Label text="{i18n&gt;detailNameTitle}"/>
+									<Text maxLines="0" text="{Name}"/>
+									<Label text="{i18n&gt;detailPhoneTitle}"/>
+									<Text maxLines="0" text="{Phone}"/>
+									<Label text="{i18n&gt;detailDivisionTitle}"/>
+									<Text maxLines="0" text="{Division}"/>
+									<Label text="{i18n&gt;detailCategoryTitle}"/>
+									<Text maxLines="0" text="{Categ}"/>
+									<Label text="{i18n&gt;detailPersNumberTitle}"/>
+									<Text maxLines="0" text="{Pernr}"/>
 									<core:ExtensionPoint name="extIconTabFilterForm1"/>
 								</f:content>
 							</f:SimpleForm>
 						</content>
 					</IconTabFilter>
-					<IconTabFilter icon="sap-icon://task" id="iconTabFilter2">
+					<IconTabFilter icon="sap-icon://task" id="iconTabFilterOrders" text="{i18n&gt;detailsOrdersTabTitle}">
 						<content>
-							<Table id="__table0" itemPress="onItemDetailPressed" items="{path: 'Destinations'}"
-								noDataText="Drop column list items here and columns in the area above">
+							<Table itemPress="onItemDetailPressed" items="{path: 'Destinations'}" noDataText="{i18n&gt;detailsOrdersTabNoDate}" headerDesign="Standard" fixedLayout="false">
 								<items>
 									<ColumnListItem counter="0" id="__item0" type="Navigation">
 										<cells>
@@ -73,8 +66,8 @@
 		<footer id="detailFooter">
 			<Toolbar id="detailToolbar">
 				<content>
-					<ToolbarSpacer id="toolbarSpacer"></ToolbarSpacer>
-					<Button icon="sap-icon://action" id="actionButton" press="openActionSheet"></Button>
+					<ToolbarSpacer id="toolbarSpacer"/>
+					<Button icon="sap-icon://action" id="actionButton" press="openActionSheet"/>
 				</content>
 			</Toolbar>
 		</footer>

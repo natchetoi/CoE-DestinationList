@@ -2,12 +2,9 @@
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
 	<Page navButtonPress="onNavBack" showNavButton="true" title="{i18n>destinationDetailsTitle}">
 		<content>
-			<ObjectHeader title="{Address}">
-				<attributes>
-					<ObjectAttribute text="{i18n>destinationDetailsStartTime}: {Item}"/>
-				</attributes>
+			<ObjectHeader title="{Address}" number="{Item}">
 			</ObjectHeader>
-			<gmaps:Map height="250px" lat="-33.895" lng="151.275" zoom="12">
+			<gmaps:Map lat="-33.895" lng="151.275" zoomControl="true" zoom="13">
 				<gmaps:markers>
 					<gmaps:Marker info="Bondi Beach" lat="-33.895" lng="151.275"/>
 				</gmaps:markers>
