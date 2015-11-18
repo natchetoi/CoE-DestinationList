@@ -9,12 +9,14 @@
 						<core:Item key="{Pernr}" text="{Name}"/>
 					</Select>
 				</FlexBox>
-				<Toolbar>
-					<Title id="titleTable" text="{i18n&gt;unassignedOrdersTitle}" titleStyle="H2" width="100%"/>
-					<ToolbarSpacer/>
-					<SearchField/>
-				</Toolbar>
-				<Table items="{path: '/Destination'}" mode="MultiSelect">
+				<Table items="{path: '/Destination'}" mode="MultiSelect" id="_tableUnassigned">
+					<headerToolbar>
+						<Toolbar>
+							<Title id="titleTable" text="{i18n&gt;unassignedOrdersTitle}" titleStyle="H2" width="100%"/>
+							<ToolbarSpacer/>
+							<SearchField search="onSearch"/>
+						</Toolbar>
+					</headerToolbar>
 					<columns>
 						<Column width="11rem">
 							<Text text="{i18n&gt;unassignedOrdersAddressTitle}"/>
